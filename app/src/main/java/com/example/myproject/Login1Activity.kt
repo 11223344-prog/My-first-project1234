@@ -117,7 +117,9 @@ fun LoginScreen() {
 
             Button(
                 onClick = {
-                    // UI only for now
+                    context.startActivity(
+                        Intent(context, DashboardActivity2::class.java)
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -133,6 +135,7 @@ fun LoginScreen() {
                     fontWeight = FontWeight.Bold
                 )
             }
+
 
             Spacer(modifier = Modifier.height(20.dp))
 
