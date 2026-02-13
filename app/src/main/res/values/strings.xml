@@ -7,4 +7,6 @@
     <string name="title_activity_splash2">SplashActivity2</string>
     <string name="title_activity_login1">Login1Activity</string>
     <string name="title_activity_forget_passwword">ForgetPasswwordActivity</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_dashboard2">DashboardActivity2</string>
 </resources>

@@ -10,23 +10,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProject">
+        <activity
+            android:name=".DashboardActivity2"
+            android:exported="true"
+            android:label="@string/title_activity_dashboard2"
+            android:theme="@style/Theme.MyProject">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <!-- ✅ ONLY launcher -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="true"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/Theme.MyProject">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- ✅ ONLY launcher -->
         <activity
             android:name=".SplashActivity2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Normal activities -->
+        </activity> <!-- Normal activities -->
         <activity android:name=".Login1Activity" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".ForgetPasswwordActivity" />
+        <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".MainActivity" />
-
     </application>
 
 </manifest>

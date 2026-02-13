@@ -65,7 +65,7 @@ fun MainBody(){
             ))
         Text("World")
         Image(
-            painter = painterResource(id = R.drawable.mango),
+            painter = painterResource(id = R.drawable.marketo),
             contentDescription = null,
             modifier = Modifier.size(150.dp)
         )

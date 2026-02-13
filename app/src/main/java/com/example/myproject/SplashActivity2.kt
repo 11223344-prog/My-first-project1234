@@ -63,7 +63,7 @@ fun SplashScreen(
         ) {
 
             Image(
-                painter = painterResource(id = R.drawable.marketing),
+                painter = painterResource(id = R.drawable.marketo),
                 contentDescription = "App Logo",
                 modifier = Modifier.size(70.dp)
             )
@@ -80,6 +80,6 @@ fun SplashScreen(
 @Composable
 fun SplashPreview() {
 
-    SplashPreview()
+    SplashScreen{}
 
 }
