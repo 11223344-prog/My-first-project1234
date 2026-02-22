@@ -19,13 +19,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myproject.model.UserModel
+import com.example.myproject.repository.UserRepoImpl
+import com.example.myproject.viewmodel.UserViewModel
 import com.example.myproject.ui.theme.Pink40
 import com.example.myproject.ui.theme.Purple80
-
-/* ---------------- ACTIVITY ---------------- */
 
 class RegistrationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,20 +33,15 @@ class RegistrationActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            RegisterScreen(
-                onLoginClick = { finish() }
-            )
+            RegisterScreen(onLoginClick = { finish() })
         }
     }
 }
 
-/* ---------------- UI ---------------- */
-
 @Composable
-fun RegisterScreen(
-    onLoginClick: () -> Unit
-) {
+fun RegisterScreen(onLoginClick: () -> Unit) {
     val context = LocalContext.current
+    val viewModel = remember { UserViewModel(UserRepoImpl()) }
 
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -59,25 +54,13 @@ fun RegisterScreen(
                 .fillMaxSize()
                 .background(Purple80)
                 .padding(padding)
-                .padding(horizontal = 24.dp),
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Spacer(modifier = Modifier.height(60.dp))
 
-            Text(
-                text = "Create Account",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = Pink40
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = "Sign up to get started",
-                color = Color.Black.copy(alpha = 0.7f)
-            )
+            Text("Create Account", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Pink40)
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -86,8 +69,7 @@ fun RegisterScreen(
                 onValueChange = { fullName = it },
                 placeholder = { Text("Full Name") },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                colors = inputColors()
+                shape = RoundedCornerShape(12.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -95,10 +77,9 @@ fun RegisterScreen(
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = { Text("Email Address") },
+                placeholder = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                colors = inputColors()
+                shape = RoundedCornerShape(12.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -116,65 +97,60 @@ fun RegisterScreen(
                     Text(
                         text = if (passwordVisible) "Hide" else "Show",
                         color = Pink40,
-                        modifier = Modifier.clickable {
-                            passwordVisible = !passwordVisible
-                        }
+                        modifier = Modifier.clickable { passwordVisible = !passwordVisible }
                     )
-                },
-                colors = inputColors()
+                }
             )
 
             Spacer(modifier = Modifier.height(30.dp))
 
             Button(
                 onClick = {
-                    Toast.makeText(
-                        context,
-                        "Account created (UI only)",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+
+                        viewModel.register(email, password) { success, message, userId ->
+                            if (success) {
+
+                                val user = UserModel(
+                                    userId = userId,
+                                    fullName = fullName,
+                                    email = email,
+                                    password = password
+                                )
+
+                                viewModel.addUserToDatabase(userId, user) { dbSuccess, dbMsg ->
+                                    if (dbSuccess) {
+                                        Toast.makeText(context, "Account Created Successfully", Toast.LENGTH_SHORT).show()
+                                        onLoginClick()
+                                    } else {
+                                        Toast.makeText(context, dbMsg, Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+                            } else {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                    } else {
+                        Toast.makeText(context, "Fill all fields", Toast.LENGTH_SHORT).show()
+                    }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
+                modifier = Modifier.fillMaxWidth().height(50.dp),
                 shape = RoundedCornerShape(14.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Pink40
-                )
+                colors = ButtonDefaults.buttonColors(containerColor = Pink40)
             ) {
-                Text(
-                    text = "Sign Up",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                Text("Sign Up", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "Already have an account? Login",
+                "Already have an account? Login",
                 color = Pink40,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.clickable { onLoginClick() }
             )
         }
     }
-}
-
-/* ---------------- SHARED COLORS ---------------- */
-
-@Composable
-fun inputColors() = TextFieldDefaults.colors(
-    unfocusedContainerColor = Purple80,
-    focusedContainerColor = Purple80,
-    unfocusedIndicatorColor = Color.Transparent,
-    focusedIndicatorColor = Pink40
-)
-
-/* ---------------- PREVIEW ---------------- */
-
-@Preview(showBackground = true)
-@Composable
-fun RegisterPreview() {
-    RegisterScreen(onLoginClick = {})
 }
