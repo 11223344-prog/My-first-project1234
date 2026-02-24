@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddShoppingCart
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -48,23 +49,30 @@ fun DashboardMainUI() {
                 NavigationBarItem(
                     selected = selectedIndex == 0,
                     onClick = { selectedIndex = 0 },
-                    icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Products") },
+                    icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "Products") },
                     label = { Text("Products") }
                 )
 
                 NavigationBarItem(
                     selected = selectedIndex == 1,
                     onClick = { selectedIndex = 1 },
-                    icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
-                    label = { Text("Search") }
+                    icon = { Icon(Icons.Filled.AddShoppingCart, contentDescription = "Add Product") },
+                    label = { Text("Add Product") }
                 )
 
                 NavigationBarItem(
                     selected = selectedIndex == 2,
                     onClick = { selectedIndex = 2 },
+                    icon = { Icon(Icons.Filled.Search, contentDescription = "Search") },
+                    label = { Text("Search") }
+                )
+
+                NavigationBarItem(
+                    selected = selectedIndex == 3,
+                    onClick = { selectedIndex = 3 },
                     icon = {
                         Icon(
-                            Icons.Default.Notifications,
+                            Icons.Filled.Notifications,
                             contentDescription = "Notification"
                         )
                     },
@@ -72,16 +80,16 @@ fun DashboardMainUI() {
                 )
 
                 NavigationBarItem(
-                    selected = selectedIndex == 3,
-                    onClick = { selectedIndex = 3 },
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                    selected = selectedIndex == 4,
+                    onClick = { selectedIndex = 4 },
+                    icon = { Icon(Icons.Filled.Person, contentDescription = "Profile") },
                     label = { Text("Profile") }
                 )
 
                 NavigationBarItem(
-                    selected = selectedIndex == 4,
-                    onClick = { selectedIndex = 4 },
-                    icon = { Icon(imageVector = Icons.Default.Add, contentDescription = "Inquiry") },
+                    selected = selectedIndex == 5,
+                    onClick = { selectedIndex = 5 },
+                    icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "Inquiry") },
                     label = { Text("Inquiry") }
                 )
             }
@@ -95,10 +103,11 @@ fun DashboardMainUI() {
 
             when (selectedIndex) {
                 0 -> HomeScreen()
-                1 -> SearchScreen()
-                2 -> NotificationScreen2()
-                3 -> ProfileScreen()
-                4 -> InquiryScreen()
+                1 -> AddProductScreen()
+                2 -> SearchScreen()
+                3 -> NotificationScreen2()
+                4 -> ProfileScreen()
+                5 -> InquiryScreen()
                 else -> HomeScreen()
             }
         }

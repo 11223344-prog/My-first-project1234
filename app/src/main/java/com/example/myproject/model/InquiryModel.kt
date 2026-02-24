@@ -1,11 +1,12 @@
 package com.example.myproject.model
 
-class InquiryModel(
+data class InquiryModel(
     var inquiryId: String = "",
     var productId: String = "",
     var userId: String = "",
     var message: String = "",
-    var timestamp: Long = System.currentTimeMillis()
+    var inquiryImage: String = "",
+    var inquiryStatus: String = "In-Progress"
 ) {
     fun toMap(): Map<String, Any?> {
         return mapOf(
@@ -13,7 +14,8 @@ class InquiryModel(
             "productId" to productId,
             "userId" to userId,
             "message" to message,
-            "timestamp" to timestamp
+            "inquiryImage" to inquiryImage,
+            "inquiryStatus" to inquiryStatus
         )
     }
 }

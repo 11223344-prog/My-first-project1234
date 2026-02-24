@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -7,31 +14,10 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        tools:replace="android:fullBackupContent"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProject">
-        <activity
-            android:name=".DashboardActivity2"
-            android:exported="true"
-            android:label="@string/title_activity_dashboard2"
-            android:theme="@style/Theme.MyProject">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".DashboardActivity"
-            android:exported="true"
-            android:label="@string/title_activity_dashboard"
-            android:theme="@style/Theme.MyProject">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- ✅ ONLY launcher -->
         <activity
             android:name=".SplashActivity2"
             android:exported="true">
@@ -40,11 +26,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Normal activities -->
+        </activity>
+        <activity
+            android:name=".DashboardActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_dashboard2" />
         <activity android:name=".Login1Activity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".ForgetPasswordActivity" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

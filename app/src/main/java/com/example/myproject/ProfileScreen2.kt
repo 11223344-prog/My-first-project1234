@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.example.myproject.ui.theme.PurpleGrey40
 
 @Composable
-fun ProfileScreen(){
+fun ProfileScreen2(){
     Column(
         modifier = Modifier.fillMaxSize().background(PurpleGrey40)
     ) {

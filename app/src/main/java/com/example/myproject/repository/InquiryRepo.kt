@@ -3,23 +3,11 @@ package com.example.myproject.repository
 import com.example.myproject.model.InquiryModel
 
 interface InquiryRepo {
-
-    // Add a new inquiry
-    fun addInquiry(
-        inquiry: InquiryModel,
-        callback: (success: Boolean, message: String) -> Unit
-    )
-
-    // Get all inquiries (optionally filtered by productId or userId)
+    fun addInquiry(inquiry: InquiryModel, callback: (Boolean, String) -> Unit)
     fun getAllInquiries(
-        productId: String? = null,
-        userId: String? = null,
-        callback: (success: Boolean, message: String, list: List<InquiryModel>) -> Unit
+        productId: String?,
+        userId: String?,
+        callback: (Boolean, String, List<InquiryModel>) -> Unit
     )
-
-    // Delete an inquiry
-    fun deleteInquiry(
-        inquiryId: String,
-        callback: (success: Boolean, message: String) -> Unit
-    )
+    fun deleteInquiry(inquiryId: String, callback: (Boolean, String) -> Unit)
 }
